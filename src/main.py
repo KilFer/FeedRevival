@@ -4,8 +4,8 @@ import threading
 import time
 import schedule
 from dotenv import load_dotenv
-from src.front_server import app
-from src.email_processor import process_emails
+from front_server import app
+from email_processor import process_emails
 
 # Load environment variables
 load_dotenv()
