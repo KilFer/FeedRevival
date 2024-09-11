@@ -5,11 +5,15 @@ services:
     container_name: feed-revival
     build: .
     ports:
-      - "5000:5000"
+      - "5000:8255"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/
-      - MONGO_DB_NAME=feedrevival
-      - MONGO_COLLECTION_NAME=feeds
+      - MONGO_URI=${MONGO_URI}
+      - MONGO_DB_NAME=${MONGO_DB_NAME}
+      - MONGO_COLLECTION_NAME=${MONGO_COLLECTION_NAME}
+      - IMAP_SERVER=${IMAP_SERVER}
+      - IMAP_USER=${IMAP_USER}
+      - IMAP_PASSWORD=${IMAP_PASSWORD}
+      - LOG_LEVEL=${LOG_LEVEL}
     depends_on:
       - mongo
 

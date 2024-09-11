@@ -1,12 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 import string
+import logging
 import random
 import os
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
+
+# Configure logging
+logging.basicConfig(level=os.getenv('LOG_LEVEL', 'INFO'), format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
@@ -34,7 +39,7 @@ def index():
         }
         feeds_collection.insert_one(new_feed)
 
-        print(f"New feed created: {new_feed}")  # Print to console
+        logger.info(f"New feed created: {new_feed}")  # Print to console
         return redirect(url_for('generated', name=name, feed_id=feed_id))
     return render_template('index.html')
 
@@ -44,7 +49,3 @@ def generated():
     name = request.args.get('name', '')
     feed_id = request.args.get('feed_id', '')
     return render_template('generated.html', name=name, feed_id=feed_id)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
