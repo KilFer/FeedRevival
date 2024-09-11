@@ -17,6 +17,6 @@ EXPOSE 8255
 ENV FLASK_APP=app.py
 ENV PYTHONUNBUFFERED=1
 
-# Run front_server.py when the container launches
-CMD ["python", "-u", "app.py"]
+# Run main.py when the container launches
+CMD ["python", "-u", "src/main.py"]
 #CMD ["flask", "run", "--host=0.0.0.0"]
