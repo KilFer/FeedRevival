@@ -21,12 +21,14 @@ feeds_collection = db[os.getenv('MONGO_COLLECTION_NAME')]
 emails_collection = db['emails']
 
 
+# Initialize server info
 def connect_to_imap():
     mail = imaplib.IMAP4_SSL(os.getenv('IMAP_SERVER'))
     mail.login(os.getenv('IMAP_USER'), os.getenv('IMAP_PASSWORD'))
     return mail
 
 
+# Get email an generate mongo data for the email
 def process_email(mail, folder, email_id):
     _, msg_data = mail.fetch(email_id, "(RFC822)")
     email_body = msg_data[0][1]
@@ -73,7 +75,7 @@ def process_emails():
                 emails_collection.insert_one(email_data)
                 logger.info(f"Saved email: {email_data['subject']}")
 
-                # Mark the email as seen
+                # Mark the email as seen?
                 mail.store(num, '+FLAGS', '(\Seen)')
 
         except Exception as e:

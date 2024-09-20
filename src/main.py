@@ -20,7 +20,7 @@ def run_email_processor():
     process_emails()
 
 def run_scheduler():
-    schedule.every(15).minutes.do(run_email_processor)
+    schedule.every(os.getenv('IMAP_SCAN_MINUTE_INTERVAL', 900)).seconds.do(run_email_processor)
     while True:
         schedule.run_pending()
         time.sleep(1)
@@ -31,4 +31,4 @@ if __name__ == "__main__":
     scheduler_thread.start()
 
     # Run the Flask app
-    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8255)))
+    app.run(host='0.0.0.0', port=int(os.getenv('WEB_PORT', 8255)))
