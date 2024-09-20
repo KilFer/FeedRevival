@@ -6,14 +6,8 @@ services:
     build: .
     ports:
       - "5000:8255"
-    environment:
-      - MONGO_URI=${MONGO_URI}
-      - MONGO_DB_NAME=${MONGO_DB_NAME}
-      - MONGO_COLLECTION_NAME=${MONGO_COLLECTION_NAME}
-      - IMAP_SERVER=${IMAP_SERVER}
-      - IMAP_USER=${IMAP_USER}
-      - IMAP_PASSWORD=${IMAP_PASSWORD}
-      - LOG_LEVEL=${LOG_LEVEL}
+    env_file:
+      - .env
     depends_on:
       - mongo
 
