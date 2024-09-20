@@ -27,8 +27,9 @@ def run_scheduler():
 
 if __name__ == "__main__":
     # Start the email processor scheduler in a separate thread
-    scheduler_thread = threading.Thread(target=run_scheduler)
-    scheduler_thread.start()
+    if os.getenv('IMAP_SCAN_ACTIVE', False):
+        scheduler_thread = threading.Thread(target=run_scheduler)
+        scheduler_thread.start()
 
     # Run the Flask app
     app.run(host='0.0.0.0', port=int(os.getenv('WEB_PORT', 8255)))
